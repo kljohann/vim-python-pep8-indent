@@ -174,6 +174,9 @@ function! s:indent_like_previous_line(lnum)
         endif
     endif
 
+    " Remove string literals.
+    let text = substitute(text, '".\{-}\\\@1<!"\|''.\{-}\\\@1<!''', '', 'g')
+
     " If the previous line ended with a colon and is not a comment, indent
     " relative to statement start.
     if text =~ '^[^#]*:\s*\(#.*\)\?$'
