@@ -112,6 +112,14 @@ shared_examples_for "vim" do
     end
   end
 
+  describe "when an 'else' is followed by" do
+    before { vim.feedkeys 'i\<TAB>\<TAB>else:\<CR>XXX\<CR>' }
+    it "a 'finally', it lines up with the 'else'" do
+      vim.feedkeys 'finally:'
+      indent.should == shiftwidth * 2
+    end
+  end
+
   describe "when using parens and control statements" do
     it "avoids ambiguity by using extra indentation" do
       vim.feedkeys 'iif (111 and\<CR>'
